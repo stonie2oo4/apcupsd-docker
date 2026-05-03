@@ -37,7 +37,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
+          
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -45,6 +45,7 @@ jobs:
           push: true
           # Wichtig für den Raspberry Pi
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME:latest }}
+          # Hier lag der Fehler - jetzt korrekt getrennt:
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
